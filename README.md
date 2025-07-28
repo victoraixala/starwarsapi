@@ -43,12 +43,14 @@ chmod +x build.sh
 
 ## Project Structure
 
-- swapi-backend/     # Spring Boot backend
-- swapi-frontend/    # Angular frontend
-- build.bat          # Windows build script
-- build.sh           # Linux/macOS build script
-- docker-compose.yml # Docker container configuration
-- README.md          # This file
+<code>
+swapi-backend/     # Spring Boot backend
+swapi-frontend/    # Angular frontend
+build.bat          # Windows build script
+build.sh           # Linux/macOS build script
+docker-compose.yml # Docker container configuration
+README.md          # This file
+</code>
 
 ## Running Tests
 
