@@ -1,0 +1,30 @@
+FROM node:18-alpine AS builder
+
+WORKDIR /app
+
+# Instal·lació de dependències amb gestió d'errors
+COPY package*.json ./
+RUN npm ci || npm install
+
+# Copiem el codi font
+COPY . .
+
+# Compilació amb comprovació de sortida
+RUN npm run build --configuration=production && \
+    ls -l dist/swapi-frontend/browser && \
+    test -f dist/swapi-frontend/browser/index.html
+
+# Etapa de producció amb Nginx
+FROM nginx:stable-alpine
+
+# Elimina contingut antic
+RUN find /usr/share/nginx/html -type f -delete
+
+# Copia el build Angular
+COPY --from=builder /app/dist/swapi-frontend/browser /usr/share/nginx/html
+
+# Exposa el port
+EXPOSE 80
+
+# Inicia Nginx
+CMD ["nginx", "-g", "daemon off;"]

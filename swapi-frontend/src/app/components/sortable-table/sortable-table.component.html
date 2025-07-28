@@ -1,0 +1,25 @@
+<h2>{{ title }}</h2>
+<table>
+  <thead>
+    <tr>
+      <th (click)="sort('name')">
+        Name
+        <span class="arrow" *ngIf="currentSortField === 'name'">
+          {{ currentDirection === 'asc' ? '▲' : '▼' }}
+        </span>
+      </th>
+      <th (click)="sort('created')">
+        Created
+        <span class="arrow" *ngIf="currentSortField === 'created'">
+          {{ currentDirection === 'asc' ? '▲' : '▼' }}
+        </span>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of data">
+      <td>{{ item.name }}</td>
+      <td>{{ item.created }}</td>
+    </tr>
+  </tbody>
+</table>
