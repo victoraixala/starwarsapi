@@ -1,0 +1,23 @@
+services:
+  backend:
+    build:
+      context: ./swapi-backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    container_name: swapi-backend
+    networks:
+      - swapi-net
+
+  frontend:
+    build:
+      context: ./swapi-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "6969:80"
+    networks:
+      - swapi-net
+
+networks:
+  swapi-net:
+    driver: bridge
