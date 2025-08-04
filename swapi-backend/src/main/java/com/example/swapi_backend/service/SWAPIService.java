@@ -1,24 +1,26 @@
 package com.example.swapi_backend.service;
 
+import com.example.swapi_backend.controller.SWAPIController;
 import com.example.swapi_backend.model.Person;
 import com.example.swapi_backend.model.Planet;
 import com.example.swapi_backend.util.ReflectionUtil;
 import com.example.swapi_backend.util.SWAPIResponse;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class SWAPIService {
+
+    private static final Logger logger = LoggerFactory.getLogger(SWAPIService.class);
 
     @Value("${swapi.base-url}")
     private String baseUrl;
@@ -30,9 +32,16 @@ public class SWAPIService {
 
     public List<Person> getPeople(String search, String sortBy, String direction) {
         String peopleApiUrl = baseUrl + "/people/";
-        log.info("Fetching people from: {}", peopleApiUrl);
-        SWAPIResponse<Person> response = new SWAPIResponse<>(Person.class, restTemplate, peopleApiUrl, search);
-        if (people == null || people.isEmpty()) people = response.fetchAll();
+        logger.info("Fetching people from " + peopleApiUrl);
+        try {
+            SWAPIResponse<Person> response = new SWAPIResponse<>(Person.class, restTemplate,
+                    peopleApiUrl, search);
+            if (people == null || people.isEmpty()) {
+                people = response.fetchAll();
+            }
+        } catch (Exception e) {
+            e.printStackTrace(System.err);
+        }
         return people.stream()
                 .filter(p -> p.getName().toLowerCase().contains(search.toLowerCase()))
                 .sorted(getComparator(sortBy, direction))
@@ -41,7 +50,7 @@ public class SWAPIService {
 
     public List<Planet> getPlanets(String search, String sortBy, String direction) {
         String planetsApiUrl = baseUrl + "/planets/";
-        log.info("Fetching planets from: {}", planetsApiUrl);
+        logger.info("Fetching planets from " + planetsApiUrl);
         SWAPIResponse<Planet> response = new SWAPIResponse<>(Planet.class, restTemplate, planetsApiUrl, search);
         if (planets == null || planets.isEmpty()) planets = response.fetchAll();
         return planets.stream()

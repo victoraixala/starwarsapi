@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SwapiBackendApplication {
 
 	public static void main(String[] args) {
-
 		SpringApplication.run(SwapiBackendApplication.class, args);
 	}
 

@@ -34,41 +34,41 @@
       <ng-template pTemplate="header">
         <tr>
           <th>Name</th>
-          <th>Birth year</th>
-          <th>Eyes color</th>
-          <th>Gender</th>
-          <th>Hair color</th>
-          <th>Height</th>
-          <th>Homeworld</th>
-          <th>Mass</th>
-          <th>Skin color</th>
-          <th>Created</th>
-          <th>Edited</th>
-          <th>Films</th>
-          <th>Species</th>
-          <th>Starships</th>
-          <th>URL</th>
-          <th>Vehicles</th>
+          <th *ngIf="visibleColumns['birth_year']">Birth year</th>
+          <th *ngIf="visibleColumns['eye_color']">Eyes color</th>
+          <th *ngIf="visibleColumns['gender']">Gender</th>
+          <th *ngIf="visibleColumns['hair_color']">Hair color</th>
+          <th *ngIf="visibleColumns['height']">Height</th>
+          <th *ngIf="visibleColumns['homeworld']">Homeworld</th>
+          <th *ngIf="visibleColumns['mass']">Mass</th>
+          <th *ngIf="visibleColumns['skin_color']">Skin color</th>
+          <th *ngIf="visibleColumns['created']">Created</th>
+          <th *ngIf="visibleColumns['edited']">Edited</th>
+          <th *ngIf="visibleColumns['films']">Films</th>
+          <th *ngIf="visibleColumns['species']">Species</th>
+          <th *ngIf="visibleColumns['starships']">Starships</th>
+          <th *ngIf="visibleColumns['url']">URL</th>
+          <th *ngIf="visibleColumns['vehicles']">Vehicles</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-person>
         <tr>
           <td>{{ person.name }}</td>
-          <td>{{ person.birth_year }}</td>
-          <td>{{ person.eye_color }}</td>
-          <td>{{ person.gender }}</td>
-          <td>{{ person.hair_color }}</td>
-          <td>{{ person.height }}</td>
-          <td>{{ person.homeworld }}</td>
-          <td>{{ person.mass }}</td>
-          <td>{{ person.skin_color }}</td>
-          <td>{{ person.created }}</td>
-          <td>{{ person.edited }}</td>
-          <td>{{ person.films?.join(', ') }}</td>
-          <td>{{ person.species?.join(', ') }}</td>
-          <td>{{ person.starships?.join(', ') }}</td>
-          <td>{{ person.url }}</td>
-          <td>{{ person.vehicles?.join(', ') }}</td>
+            <td *ngIf="visibleColumns['birth_year']">{{ person.birth_year }}</td>
+            <td *ngIf="visibleColumns['eye_color']">{{ person.eye_color }}</td>
+            <td *ngIf="visibleColumns['gender']">{{ person.gender }}</td>
+            <td *ngIf="visibleColumns['hair_color']">{{ person.hair_color }}</td>
+            <td *ngIf="visibleColumns['height']">{{ person.height }}</td>
+            <td *ngIf="visibleColumns['homeworld']">{{ person.homeworld }}</td>
+            <td *ngIf="visibleColumns['mass']">{{ person.mass }}</td>
+            <td *ngIf="visibleColumns['skin_color']">{{ person.skin_color }}</td>
+            <td *ngIf="visibleColumns['created']">{{ person.created }}</td>
+            <td *ngIf="visibleColumns['edited']">{{ person.edited }}</td>
+            <td *ngIf="visibleColumns['films']">{{ person.films?.join(', ') }}</td>
+            <td *ngIf="visibleColumns['species']">{{ person.species?.join(', ') }}</td>
+            <td *ngIf="visibleColumns['starships']">{{ person.starships?.join(', ') }}</td>
+            <td *ngIf="visibleColumns['url']">{{ person.url }}</td>
+            <td *ngIf="visibleColumns['vehicles']">{{ person.vehicles?.join(', ') }}</td>
         </tr>
       </ng-template>
     </p-table>
@@ -106,38 +106,38 @@
     >
       <ng-template pTemplate="header">
         <tr>
-          <th>Name</th>
-          <th>Climate</th>
-          <th>Created</th>
-          <th>Diameter</th>
-          <th>Edited</th>
-          <th>Films</th>
-          <th>Gravity</th>
-          <th>Orbital period</th>
-          <th>Population</th>
-          <th>Residents</th>
-          <th>Rotation period</th>
-          <th>Surface water</th>
-          <th>Terrain</th>
-          <th>URL</th>
+          <th *ngIf="visibleColumns['name']">Name</th>
+          <th *ngIf="visibleColumns['climate']">Climate</th>
+          <th *ngIf="visibleColumns['created']">Created</th>
+          <th *ngIf="visibleColumns['diameter']">Diameter</th>
+          <th *ngIf="visibleColumns['edited']">Edited</th>
+          <th *ngIf="visibleColumns['films']">Films</th>
+          <th *ngIf="visibleColumns['gravity']">Gravity</th>
+          <th *ngIf="visibleColumns['orbital_period']">Orbital period</th>
+          <th *ngIf="visibleColumns['population']">Population</th>
+          <th *ngIf="visibleColumns['residents']">Residents</th>
+          <th *ngIf="visibleColumns['rotation_period']">Rotation period</th>
+          <th *ngIf="visibleColumns['surface_water']">Surface water</th>
+          <th *ngIf="visibleColumns['terrain']">Terrain</th>
+          <th *ngIf="visibleColumns['url']">URL</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-planet>
         <tr>
-          <td>{{ planet.name }}</td>
-          <td>{{ planet.climate }}</td>
-          <td>{{ planet.created }}</td>
-          <td>{{ planet.diameter }}</td>
-          <td>{{ planet.edited }}</td>
-          <td>{{ planet.films?.join(', ') }}</td>
-          <td>{{ planet.gravity }}</td>
-          <td>{{ planet.orbital_period }}</td>
-          <td>{{ planet.population }}</td>
-          <td>{{ planet.residents?.join(', ') }}</td>
-          <td>{{ planet.rotation_period }}</td>
-          <td>{{ planet.surface_water }}</td>
-          <td>{{ planet.terrain }}</td>
-          <td>{{ planet.url }}</td>
+          <td *ngIf="visibleColumns['name']">{{ planet.name }}</td>
+          <td *ngIf="visibleColumns['climate']">{{ planet.climate }}</td>
+          <td *ngIf="visibleColumns['created']">{{ planet.created }}</td>
+          <td *ngIf="visibleColumns['diameter']">{{ planet.diameter }}</td>
+          <td *ngIf="visibleColumns['edited']">{{ planet.edited }}</td>
+          <td *ngIf="visibleColumns['films']">{{ planet.films?.join(', ') }}</td>
+          <td *ngIf="visibleColumns['gravity']">{{ planet.gravity }}</td>
+          <td *ngIf="visibleColumns['orbital_period']">{{ planet.orbital_period }}</td>
+          <td *ngIf="visibleColumns['population']">{{ planet.population }}</td>
+          <td *ngIf="visibleColumns['residents']">{{ planet.residents?.join(', ') }}</td>
+          <td *ngIf="visibleColumns['rotation_period']">{{ planet.rotation_period }}</td>
+          <td *ngIf="visibleColumns['surface_water']">{{ planet.surface_water }}</td>
+          <td *ngIf="visibleColumns['terrain']">{{ planet.terrain }}</td>
+          <td *ngIf="visibleColumns['url']">{{ planet.url }}</td>
         </tr>
       </ng-template>
     </p-table>

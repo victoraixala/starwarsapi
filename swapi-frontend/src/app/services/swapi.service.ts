@@ -14,21 +14,22 @@ export class SwapiService {
 
   constructor(private http: HttpClient) {}
 
-  getPlanets(search: string, sortBy?: string, direction?: string): Observable<SWAPIResponse<Planet[]>> {
+  getPeople(search?: string, sortBy?: string, direction?: string): Observable<SWAPIResponse<Person[]>> {
     let params = new HttpParams();
     if (search) params = params.set('search', search);
     if (sortBy) params = params.set('sortBy', sortBy);
     if (direction) params = params.set('direction', direction);
-    console.log('Fetching planets from service with params:', params.toString());
+    console.log('Fetching people from service ', this.baseUrl, ' with params:', params.toString());
+    return this.http.get<SWAPIResponse<Person[]>>(`${this.baseUrl}/people`, { params });
+  }
+
+  getPlanets(search?: string, sortBy?: string, direction?: string): Observable<SWAPIResponse<Planet[]>> {
+    let params = new HttpParams();
+    if (search) params = params.set('search', search);
+    if (sortBy) params = params.set('sortBy', sortBy);
+    if (direction) params = params.set('direction', direction);
+    console.log('Fetching planets from service ', this.baseUrl, ' with params:', params.toString());
     return this.http.get<SWAPIResponse<Planet[]>>(`${this.baseUrl}/planets`, { params });
   }
 
-  getPeople(search: string, sortBy?: string, direction?: string): Observable<SWAPIResponse<Person[]>> {
-    let params = new HttpParams();
-    if (search) params = params.set('search', search);
-    if (sortBy) params = params.set('sortBy', sortBy);
-    if (direction) params = params.set('direction', direction);
-    console.log('Fetching people from service with params:', params.toString());
-    return this.http.get<SWAPIResponse<Person[]>>(`${this.baseUrl}/people`, { params });
-  }
 }

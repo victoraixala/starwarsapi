@@ -1,10 +1,12 @@
 package com.example.swapi_backend.util;
 
+import com.example.swapi_backend.service.SWAPIService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
@@ -13,10 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Slf4j
 @Getter
 @Setter
 public class SWAPIResponse<T> {
+
+    private static final Logger logger = LoggerFactory.getLogger(SWAPIResponse.class);
     private List<T> result;
     private int count;
 
@@ -39,22 +42,22 @@ public class SWAPIResponse<T> {
         String url = baseUrl;
         int page = 1;
 
-        log.info("Starting SWAPI fetch for type {}", type.getSimpleName());
+        logger.info("Starting SWAPI fetch for type " + type.getSimpleName());
 
         while (true) {
-            log.info("Fetching page {} from URL: {}", page, url);
+            logger.info("Fetching page " + page + " from URL " + url);
 
             ResponseEntity<Map> response;
             try {
                 response = restTemplate.exchange(url, HttpMethod.GET, null, Map.class);
             } catch (Exception e) {
-                log.error("Exception during SWAPI request to {}", url, e);
+                logger.info("Exception during SWAPI request to " + url + " " + e);
                 break;
             }
 
             Map<String, Object> body = response.getBody();
             if (body == null) {
-                log.warn("Empty body at page {}", page);
+                logger.info("Empty body at page " + page);
                 break;
             }
 
@@ -63,7 +66,7 @@ public class SWAPIResponse<T> {
 
             Object next = body.get("next");
             if (next == null || next.toString().isEmpty()) {
-                log.info("No more pages to fetch. Total pages: {}", page);
+                logger.info("No more pages to fetch. Total pages: " + page);
                 break;
             }
 
@@ -71,7 +74,8 @@ public class SWAPIResponse<T> {
             page++;
         }
 
-        log.info("Finished fetching {} total items of type {}", allItems.size(), type.getSimpleName());
+        logger.info("Finished fetching " + allItems.size() +
+                 " total items of type " + type.getSimpleName());
         return allItems;
     }
 
@@ -80,7 +84,7 @@ public class SWAPIResponse<T> {
 
         Object rawList = body.get("results");
         if (!(rawList instanceof List)) {
-            log.warn("Expected a List in 'results', got: {}", rawList);
+            logger.info("Expected a List in 'results', got " + rawList);
             return parsedItems;
         }
 
@@ -101,12 +105,13 @@ public class SWAPIResponse<T> {
                     if (detailProps instanceof Map) {
                         T obj = mapper.convertValue(detailProps, type);
                         parsedItems.add(obj);
-                        log.debug("Fetched details from URL: {}", detailUrl);
+                        logger.info("Fetched details from URL " + detailUrl + " detailProps: "
+                        + detailProps);
                     }
                 }
 
             } catch (Exception e) {
-                log.error("Error converting item: {}", e.getMessage());
+                logger.error("Error converting item " + e.getMessage());
             }
         }
 

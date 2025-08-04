@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiBaseUrl: 'https://swapi.tech/api'
+  apiBaseUrl: 'http://localhost:8080/api'
 };

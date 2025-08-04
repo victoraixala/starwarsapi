@@ -5,6 +5,7 @@ import com.example.swapi_backend.model.Planet;
 import com.example.swapi_backend.service.SWAPIService;
 import com.example.swapi_backend.util.SWAPIResponse;
 import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +25,6 @@ public class SWAPIController {
             @RequestParam(defaultValue = "") String search,
             @RequestParam(defaultValue = "name") String sortBy,
             @RequestParam(defaultValue = "asc") String direction) {
-
         List<Person> people = service.getPeople(search, sortBy, direction);
         SWAPIResponse<Person> response = new SWAPIResponse<>();
         response.setResult(people);
@@ -37,7 +37,6 @@ public class SWAPIController {
             @RequestParam(required = false, defaultValue = "") String search,
             @RequestParam(required = false, defaultValue = "name") String sortBy,
             @RequestParam(required = false, defaultValue = "asc") String direction) {
-
         List<Planet> planets = service.getPlanets(search, sortBy, direction);
         SWAPIResponse<Planet> response = new SWAPIResponse<>();
         response.setResult(planets);
